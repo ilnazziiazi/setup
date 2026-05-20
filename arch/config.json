@@ -1,28 +1,68 @@
 {
+  "app_config": {
+    "fonts_config": {
+      "fonts": [
+        "noto-fonts",
+        "noto-fonts-emoji"
+      ]
+    }
+  },
   "archinstall-language": "English",
-  "audio_config": {
-    "audio": "pipewire"
-  },
+  "auth_config": {},
   "bootloader_config": {
-    "bootloader": "Systemd-boot"
+    "bootloader": "Systemd-boot",
+    "removable": false,
+    "uki": true
   },
+  "custom_commands": [],
   "disk_config": {
-    "config_type": "default_layout",
+    "btrfs_options": {"snapshot_config": null},
+    "config_type": "manual_partitioning",
     "device_modifications": [
       {
         "device": "/dev/sda",
         "wipe": true,
         "partitions": [
           {
-            "flags": ["boot"],
+            "btrfs": [],
+            "dev_path": null,
+            "flags": ["boot", "esp"],
             "fs_type": "fat32",
-            "size": "512MiB",
-            "mountpoint": "/boot"
+            "size": {
+              "sector_size": {"unit": "B", "value": 512}, 
+              "unit": "MiB", 
+              "value": 512
+            },
+            "start": {
+              "sector_size": {"unit": "B", "value": 512}, 
+              "unit": "MiB", 
+              "value": 1
+            },
+            "mount_options": [],
+            "mountpoint": "/boot",
+            "obj_id": "CC564188-6A8C-4729-9789-5C6C274832C8",
+            "status": "create",
+            "type": "primary"
           },
           {
+            "btrfs": [],
+            "dev_path": null,
             "fs_type": "ext4",
-            "size": "100%",
-            "mountpoint": "/"
+            "size": {
+              "sector_size": {"unit": "B", "value": 512},
+              "unit": "GiB", 
+              "value": 236
+            },
+            "start": {
+              "sector_size": {"unit": "B", "value": 512},
+              "unit": "MiB", 
+              "value": 513
+            },
+            "mount_options": [],
+            "mountpoint": "/",
+            "obj_id": "BFE058C1-E5CB-4CB3-8DCC-653EC28F9B29",
+            "status": "create",
+            "type": "primary"
           }
         ]
       }
@@ -37,23 +77,33 @@
   },
   "mirror_config": {
     "mirror_regions": {
-      "Russia": ["https://mirror.yandex.ru/archlinux/$repo/os/$arch"]
+      "Kazakhstan": [
+        "http://mirror.ps.kz/archlinux/$repo/os/$arch",
+        "https://mirror.ps.kz/archlinux/$repo/os/$arch",
+        "http://mirror.linxhost.ru/$repo/os/$arch"
+      ]
     }
   },
-  "network_config": {
-    "type": "NetworkManager"
+  "network_config": {"type": "nm"},
+  "ntp": true,
+  "package": [],
+  "pacman_config": {
+    "color": true,
+    "parallel downloads": 5
   },
-  "parallel downloads": 5,
   "profile_config": {
     "gfx_driver": "Intel (open-source)",
+    "greeter": "ly",
     "profile": {
-      "main": "Desktop",
-      "custom_settings": {
-        "desktop": "niri"
-      }
+      "custom_settings": {"Niri": {"seat_access": "polkit"}},
+      "details": ["Niri"],
+      "main": "Desktop"
     }
   },
-  "swap": "8GiB",
+  "swap": {
+    "algorithm": "zstd",
+    "enabled": true
+  },
   "timezone": "Asia/Almaty",
-  "post-install-script": "post.sh"
+  "version": "4.3"
 }

@@ -25,8 +25,6 @@ echo "dotfiles installation from $DOTFILES_REPO..."
 sudo -u $USER_NAME bash -c "
   git clone $DOTFILES_REPO $USER_HOME/dotfiles
 "
-
-echo "Stowing dotfiles..."
 sudo -u $USER_NAME bash -c "
   cd $USER_HOME/dotfiles && \
   stow git nvim p10k tmux zsh niri waybar fuzzel mako
