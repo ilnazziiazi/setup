@@ -1,0 +1,58 @@
+{
+  "archinstall-language": "English",
+  "audio_config": {
+    "audio": "pipewire"
+  },
+  "bootloader_config": {
+    "bootloader": "Systemd-boot"
+  },
+  "disk_config": {
+    "config_type": "default_layout",
+    "device_modifications": [
+      {
+        "device": "/dev/sda",
+        "wipe": true,
+        "partitions": [
+          {
+            "flags": ["boot"],
+            "fs_type": "fat32",
+            "size": "512MiB",
+            "mountpoint": "/boot"
+          },
+          {
+            "fs_type": "ext4",
+            "size": "100%",
+            "mountpoint": "/"
+          }
+        ]
+      }
+    ]
+  },
+  "hostname": "archlinux",
+  "kernels": ["linux"],
+  "locale_config": {
+    "kb_layout": "us",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_US"
+  },
+  "mirror_config": {
+    "mirror_regions": {
+      "Russia": ["https://mirror.yandex.ru/archlinux/$repo/os/$arch"]
+    }
+  },
+  "network_config": {
+    "type": "NetworkManager"
+  },
+  "parallel downloads": 5,
+  "profile_config": {
+    "gfx_driver": "Intel (open-source)",
+    "profile": {
+      "main": "Desktop",
+      "custom_settings": {
+        "desktop": "niri"
+      }
+    }
+  },
+  "swap": "8GiB",
+  "timezone": "Asia/Almaty"
+}
