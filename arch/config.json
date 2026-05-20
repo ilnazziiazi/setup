@@ -54,5 +54,6 @@
     }
   },
   "swap": "8GiB",
-  "timezone": "Asia/Almaty"
+  "timezone": "Asia/Almaty",
+  "post-install-script": "post.sh"
 }

@@ -1,4 +1,8 @@
 # Usage
+
 ```bash
-archinstall --config https://raw.githubusercontent.com/ilnazziiazi/setup/refs/heads/main/arch/config.json
+pacman -Sy git
+git clone https://github.com/ilnazziiazi/setup.git
+cd setup/arch
+archinstall --config config.json
 ```
