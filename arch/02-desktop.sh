@@ -48,7 +48,8 @@ cd "/home/${USERNAME}/dotfiles"
 sudo -u "${USERNAME}" stow ghostty niri waybar fuzzel mako
 
 echo "Configuring niri services and portal settings..."
-sudo -u "${USERNAME}" systemctl --user add-wants niri.service dms
+sudo -u "${USERNAME}" mkdir -p "/home/${USERNAME}/.config/systemd/user/niri.service.wants"
+sudo -u "${USERNAME}" ln -sf "/usr/lib/systemd/user/dms.service" "/home/${USERNAME}/.config/systemd/user/niri.service.wants/"
 
 echo "Configuring hyprpolkitagent override..."
 sudo -u "${USERNAME}" mkdir -p "/home/${USERNAME}/.config/systemd/user/hyprpolkitagent.service.d"
@@ -56,8 +57,5 @@ sudo -u "${USERNAME}" bash -c "cat <<EOF > '/home/${USERNAME}/.config/systemd/us
 [Unit]
 After=graphical-session.target
 EOF"
-
-echo "Setting dark theme preference..."
-sudo -u "${USERNAME}" dbus-run-session dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'" || true
 
 echo "Desktop setup complete!"
