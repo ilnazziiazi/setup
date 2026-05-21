@@ -106,8 +106,7 @@ pacstrap -K /mnt base linux linux-firmware intel-ucode \
   networkmanager niri ghostty efibootmgr git \
   mesa vulkan-intel intel-media-driver \
   pipewire wireplumber \
-  xdg-desktop-portal \
-  ttf-jetbrains-mono-nerd
+  xdg-desktop-portal
 
 # ==============================================================================
 # 5. FSTAB

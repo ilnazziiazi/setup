@@ -7,7 +7,7 @@ source /setup_env.sh
 echo "Installing additional packages..."
 pacman -Syu --noconfirm base-devel git sudo zsh curl zram-generator \
   vpl-gpu-rt pipewire-alsa pipewire-pulse \
-  docker tailscale polkit hyptpolkitagent wayland xwayland-satellite \
+  docker tailscale polkit hyprpolkitagent wayland xwayland-satellite \
   xdg-desktop-portal-gnome xdg-desktop-portal-gtk nautilus alacritty dms-shell-niri matugen cava qt6-multimedia-ffmpeg \
   fuzzel waybar mako grim slurp wl-clipboard \
   stow neovim tmux swaybg pavucontrol zoxide swayidle gnome-keyring \
@@ -113,9 +113,9 @@ sudo -u "${USERNAME}" bash -c "
 echo "Configuring niri services and portal settings..."
 sudo -u "${USERNAME}" systemctl --user add-wants niri.service dms
 
-echo "Configuring plasma-polkit-agent override..."
-sudo -u "${USERNAME}" mkdir -p "/home/${USERNAME}/.config/systemd/user/plasma-polkit-agent.service.d"
-sudo -u "${USERNAME}" bash -c "cat <<EOF > '/home/${USERNAME}/.config/systemd/user/plasma-polkit-agent.service.d/override.conf'
+echo "Configuring hyprpolkitagent override..."
+sudo -u "${USERNAME}" mkdir -p "/home/${USERNAME}/.config/systemd/user/hyprpolkitagent.service.d"
+sudo -u "${USERNAME}" bash -c "cat <<EOF > '/home/${USERNAME}/.config/systemd/user/hyprpolkitagent.service.d/override.conf'
 [Unit]
 After=graphical-session.target
 EOF"
