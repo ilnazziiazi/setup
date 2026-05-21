@@ -44,23 +44,14 @@ done
 # 3. GET PASSWORDS
 echo ""
 while true; do
-  read -s -p "Enter password for user $USERNAME: " USER_PW
+  read -s -p "Enter password (will be used for both root and $USERNAME): " USER_PW
   echo ""
   read -s -p "Confirm password: " USER_PW2
   echo ""
   [ "$USER_PW" = "$USER_PW2" ] && [ -n "$USER_PW" ] && break
   echo "ERROR: Passwords do not match or are empty. Try again."
 done
-
-echo ""
-while true; do
-  read -s -p "Enter ROOT password: " ROOT_PW
-  echo ""
-  read -s -p "Confirm ROOT password: " ROOT_PW2
-  echo ""
-  [ "$ROOT_PW" = "$ROOT_PW2" ] && [ -n "$ROOT_PW" ] && break
-  echo "ERROR: Passwords do not match or are empty. Try again."
-done
+ROOT_PW="$USER_PW"
 
 # 4. SELECT DISK
 echo -e "\nAvailable disks:"
