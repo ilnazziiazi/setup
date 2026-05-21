@@ -41,7 +41,7 @@ mkdir -p /mnt/boot
 mount "$PART_EFI" /mnt/boot
 
 echo "Installing base system (Server/CLI)..."
-pacstrap -K /mnt base linux linux-firmware intel-ucode networkmanager efibootmgr git sudo zsh curl zram-generator docker tailscale stow neovim tmux zoxide noto-fonts wget
+pacstrap -K /mnt base base-devel linux linux-firmware intel-ucode networkmanager efibootmgr git sudo zsh curl zram-generator docker tailscale stow neovim tmux zoxide noto-fonts wget
 
 echo "Generating fstab..."
 genfstab -U /mnt >>/mnt/etc/fstab
