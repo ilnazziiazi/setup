@@ -52,8 +52,11 @@ genfstab -U /mnt >>/mnt/etc/fstab
 echo "Setting up workspace in chroot (/tmp)..."
 mkdir -p /mnt/tmp
 
+# Get absolute path to the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Copy scripts and config to /mnt/tmp
-cp "$(dirname "$0")/"* /mnt/tmp/ 2>/dev/null || true
+cp "$SCRIPT_DIR/"* /mnt/tmp/ 2>/dev/null || true
 chmod +x /mnt/tmp/*.sh 2>/dev/null || true
 
 # Generate environment file for chroot
@@ -70,5 +73,10 @@ git clone "${DOTFILES_REPO:-https://github.com/ilnazziiazi/dotfiles}" -b "${DOTF
 # CHROOT EXECUTION (SERVER PHASE)
 # ==============================================================================
 echo "Configuring system inside chroot (Server Phase)..."
+
+if [ ! -f "/mnt/tmp/01-server-chroot.sh" ]; then
+    echo "ERROR: Failed to copy scripts to /mnt/tmp/. Cannot proceed with chroot."
+    exit 1
+fi
 
 arch-chroot /mnt bash /tmp/01-server-chroot.sh
