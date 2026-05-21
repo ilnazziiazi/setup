@@ -55,8 +55,8 @@ systemctl enable docker
 systemctl enable tailscaled
 systemctl enable fstrim.timer
 
-echo "Fixing permissions on dotfiles..."
-chown -R "${USERNAME}:${USERNAME}" "/home/${USERNAME}/dotfiles"
+echo "Fixing permissions on home directory..."
+chown -R "${USERNAME}:${USERNAME}" "/home/${USERNAME}"
 
 echo "Installing oh-my-zsh..."
 sudo -u "${USERNAME}" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
