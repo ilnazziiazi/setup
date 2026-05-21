@@ -5,8 +5,8 @@ set -e
 # 02-DESKTOP.SH - GUI and Niri Environment
 # ==============================================================================
 
-source /tmp/config.env
-source /tmp/setup_env.sh
+source /setup_tmp/config.env
+source /setup_tmp/setup_env.sh
 
 echo "Installing Desktop & GUI packages..."
 pacman -Syu --noconfirm \

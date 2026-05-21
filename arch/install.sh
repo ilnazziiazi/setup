@@ -93,11 +93,11 @@ bash "$(dirname "$0")/01-server.sh"
 if [ "$INSTALL_MODE" = "desktop" ]; then
     echo ""
     echo ">>> DESKTOP MODE SELECTED. STARTING GUI INSTALLATION IN CHROOT <<<"
-    arch-chroot /mnt bash /tmp/02-desktop.sh
+    arch-chroot /mnt bash /setup_tmp/02-desktop.sh
 fi
 
 echo "Cleaning up temporary files..."
-rm -f /mnt/tmp/*.sh /mnt/tmp/*.env 2>/dev/null || true
+rm -rf /mnt/setup_tmp 2>/dev/null || true
 
 echo ""
 echo "=== ALL DONE ==="

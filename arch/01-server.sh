@@ -49,18 +49,18 @@ genfstab -U /mnt >>/mnt/etc/fstab
 # ==============================================================================
 # CONFIGURATION TRANSFER
 # ==============================================================================
-echo "Setting up workspace in chroot (/tmp)..."
-mkdir -p /mnt/tmp
+echo "Setting up workspace in chroot (/setup_tmp)..."
+mkdir -p /mnt/setup_tmp
 
 # Get absolute path to the script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Copy scripts and config to /mnt/tmp
-cp "$SCRIPT_DIR/"* /mnt/tmp/ 2>/dev/null || true
-chmod +x /mnt/tmp/*.sh 2>/dev/null || true
+# Copy scripts and config to /mnt/setup_tmp
+cp "$SCRIPT_DIR/"* /mnt/setup_tmp/ 2>/dev/null || true
+chmod +x /mnt/setup_tmp/*.sh 2>/dev/null || true
 
 # Generate environment file for chroot
-cat <<ENV >/mnt/tmp/setup_env.sh
+cat <<ENV >/mnt/setup_tmp/setup_env.sh
 USER_PW="$USER_PW"
 ROOT_PW="$ROOT_PW"
 INSTALL_MODE="$INSTALL_MODE"
@@ -74,9 +74,9 @@ git clone "${DOTFILES_REPO:-https://github.com/ilnazziiazi/dotfiles}" -b "${DOTF
 # ==============================================================================
 echo "Configuring system inside chroot (Server Phase)..."
 
-if [ ! -f "/mnt/tmp/01-server-chroot.sh" ]; then
-    echo "ERROR: Failed to copy scripts to /mnt/tmp/. Cannot proceed with chroot."
+if [ ! -f "/mnt/setup_tmp/01-server-chroot.sh" ]; then
+    echo "ERROR: Failed to copy scripts to /mnt/setup_tmp/. Cannot proceed with chroot."
     exit 1
 fi
 
-arch-chroot /mnt bash /tmp/01-server-chroot.sh
+arch-chroot /mnt bash /setup_tmp/01-server-chroot.sh

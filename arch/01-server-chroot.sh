@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-source /tmp/config.env
-source /tmp/setup_env.sh
+source /setup_tmp/config.env
+source /setup_tmp/setup_env.sh
 
 echo "Configuring timezone..."
 ln -sf "/usr/share/zoneinfo/${TIMEZONE}" /etc/localtime
