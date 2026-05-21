@@ -7,7 +7,7 @@ source /setup_env.sh
 echo "Installing additional packages..."
 pacman -Syu --noconfirm base-devel git sudo zsh curl zram-generator \
   vpl-gpu-rt pipewire-alsa pipewire-pulse \
-  docker tailscale polkit plasma-polkit-agent wayland xwayland-satellite \
+  docker tailscale polkit hyptpolkitagent wayland xwayland-satellite \
   xdg-desktop-portal-gnome xdg-desktop-portal-gtk nautilus alacritty dms-shell-niri matugen cava qt6-multimedia-ffmpeg \
   fuzzel waybar mako grim slurp wl-clipboard \
   stow neovim tmux swaybg pavucontrol zoxide swayidle gnome-keyring \
@@ -106,7 +106,9 @@ chown -R "${USERNAME}:${USERNAME}" "/home/${USERNAME}/dotfiles"
 
 echo "Stowing dotfiles..."
 cd "/home/${USERNAME}/dotfiles"
-sudo -u "${USERNAME}" stow -f ghostty git nvim p10k tmux zsh niri waybar fuzzel mako
+sudo -u "${USERNAME}" bash -c "
+  stow ghostty git nvim p10k tmux zsh niri waybar fuzzel mako
+"
 
 echo "Configuring niri services and portal settings..."
 sudo -u "${USERNAME}" systemctl --user add-wants niri.service dms
@@ -117,18 +119,6 @@ sudo -u "${USERNAME}" bash -c "cat <<EOF > '/home/${USERNAME}/.config/systemd/us
 [Unit]
 After=graphical-session.target
 EOF"
-
-echo "Setting dark theme preference..."
-sudo -u "${USERNAME}" dbus-run-session dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'" || true
-
-echo "Configuring autostart (Niri on tty1 login)..."
-sudo -u "${USERNAME}" touch "/home/${USERNAME}/.zshrc"
-cat <<'EOT' >"/home/${USERNAME}/.zprofile"
-if [ -z "${WAYLAND_DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec niri-session
-fi
-EOT
-chown "${USERNAME}:${USERNAME}" "/home/${USERNAME}/.zprofile"
 
 # Clean up passwords file
 rm -f /setup_env.sh
