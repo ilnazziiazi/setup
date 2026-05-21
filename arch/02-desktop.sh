@@ -45,7 +45,7 @@ rm -rf "/home/${USERNAME}/yay-bin"
 
 echo "Stowing GUI dotfiles..."
 cd "/home/${USERNAME}/dotfiles"
-sudo -u "${USERNAME}" stow -f ghostty niri waybar fuzzel mako
+sudo -u "${USERNAME}" stow ghostty niri waybar fuzzel mako
 
 echo "Configuring niri services and portal settings..."
 sudo -u "${USERNAME}" systemctl --user add-wants niri.service dms
@@ -59,14 +59,5 @@ EOF"
 
 echo "Setting dark theme preference..."
 sudo -u "${USERNAME}" dbus-run-session dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'" || true
-
-echo "Configuring autostart (Niri on tty1 login)..."
-sudo -u "${USERNAME}" touch "/home/${USERNAME}/.zshrc"
-cat <<'EOT' >"/home/${USERNAME}/.zprofile"
-if [ -z "${WAYLAND_DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
-    exec niri-session
-fi
-EOT
-chown "${USERNAME}:${USERNAME}" "/home/${USERNAME}/.zprofile"
 
 echo "Desktop setup complete!"

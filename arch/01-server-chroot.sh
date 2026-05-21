@@ -63,4 +63,4 @@ sudo -u "${USERNAME}" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmy
 
 echo "Stowing CLI dotfiles..."
 cd "/home/${USERNAME}/dotfiles"
-sudo -u "${USERNAME}" stow -f git nvim p10k tmux zsh
+sudo -u "${USERNAME}" stow git nvim p10k tmux zsh
