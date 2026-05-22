@@ -10,13 +10,13 @@ source /setup_tmp/setup_env.sh
 
 echo "Installing Desktop & GUI packages..."
 pacman -Syu --noconfirm \
-  vpl-gpu-rt pipewire-alsa pipewire-pulse \
-  polkit hyprpolkitagent wayland xwayland-satellite \
-  niri xdg-desktop-portal-gnome xdg-desktop-portal-gtk nautilus alacritty dms-shell-niri matugen cava qt6-multimedia-ffmpeg \
-  fuzzel waybar mako grim slurp wl-clipboard \
-  swaybg pavucontrol swayidle gnome-keyring \
-  noto-fonts-emoji dconf ghostty \
-  mesa vulkan-intel intel-media-driver pipewire wireplumber
+  vpl-gpu-rt mesa vulkan-intel intel-media-driver \
+  pipewire wireplumber pipewire-alsa pipewire-pulse \
+  polkit hyprpolkitagent \
+  wayland xwayland-satellite \
+  xdg-desktop-portal-gnome xdg-desktop-portal-gtk \
+  niri dms-shell-niri matugen cava qt6-multimedia-ffmpeg \
+  nautilus alacritty wl-clipboard pavucontrol gnome-keyring noto-fonts-emoji dconf
 
 echo "Configuring gnome-keyring auto-unlock..."
 sed -i '/^auth.*include.*system-local-login/a auth       optional   pam_gnome_keyring.so' /etc/pam.d/login
@@ -24,7 +24,6 @@ sed -i '/^session.*include.*system-local-login/a session    optional   pam_gnome
 
 echo "Installing yay and AUR packages..."
 echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >/etc/sudoers.d/temp_nopasswd
-
 sudo -u "${USERNAME}" bash -c "
   cd /home/${USERNAME} &&
   git clone https://aur.archlinux.org/yay-bin.git &&
@@ -45,7 +44,7 @@ rm -rf "/home/${USERNAME}/yay-bin"
 
 echo "Stowing GUI dotfiles..."
 cd "/home/${USERNAME}/dotfiles"
-sudo -u "${USERNAME}" stow ghostty niri waybar fuzzel mako
+sudo -u "${USERNAME}" stow niri
 
 echo "Configuring niri services and portal settings..."
 sudo -u "${USERNAME}" mkdir -p "/home/${USERNAME}/.config/systemd/user/niri.service.wants"
